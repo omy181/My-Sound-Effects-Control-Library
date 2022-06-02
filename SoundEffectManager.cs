@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Holylib.SoundEffects
 {
@@ -30,16 +31,22 @@ namespace Holylib.SoundEffects
             Destroy(SFXobject);
         }
 
+        public List<GameObject> PlayinSounds;
     }
 
     
     public static class SoundEffectController
     {
-        public static GameObject PlaySFX(SoundClip clip, bool isloop = false, float volume = 1, float playduration = -1, float startduration = -1, Vector3 pos = new Vector3())
+        public static GameObject PlaySFX(SoundClip clip, bool isloop = false, float volume = 1, float playduration = -1, float startduration = -1,Vector3 pos = new Vector3(),bool isindipendent = false)
         {
             //Create SFX Object
             GameObject SoundEffectsObject = SoundEffectManager.Instance.CreateSFXObj(SoundEffectManager.Instance.EmptySoundObject);
             SoundEffectsObject.transform.position = pos;
+            if (!isindipendent)
+            {
+                SoundEffectManager.Instance.PlayinSounds.Add(SoundEffectsObject);
+            }
+            
 
             //Create New SFX Data
             SoundEffect sfx = new SoundEffect();
@@ -57,7 +64,17 @@ namespace Holylib.SoundEffects
 
         public static void StopSFX(GameObject SFXobject)
         {
+            SoundEffectManager.Instance.PlayinSounds.Remove(SFXobject);
             SoundEffectManager.Instance.DestroySFXObject(SFXobject);
+        }
+
+        public static void StopAllSFX()
+        {
+            foreach(GameObject SFXobject in SoundEffectManager.Instance.PlayinSounds)
+            {
+                SoundEffectManager.Instance.DestroySFXObject(SFXobject);
+            }
+            SoundEffectManager.Instance.PlayinSounds.Clear();
         }
     }
 
