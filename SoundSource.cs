@@ -11,9 +11,7 @@ namespace Holylib.SoundEffects
         {
             audiosource = GetComponent<AudioSource>();
 
-            audiosource.clip = sfx.Clip[Random.Range(0,sfx.Clip.Length)];
-            audiosource.loop = sfx.isloop;
-            audiosource.volume = sfx.volume;
+            Modify();
 
             if(sfx.startduration > 0)
             {
@@ -25,6 +23,18 @@ namespace Holylib.SoundEffects
                 StartCoroutine(StopAfterTime());
             }   
    
+        }
+
+        public void Modify(SoundEffect s = null)
+        {
+            if(s != null) { sfx = s; }
+
+            audiosource = GetComponent<AudioSource>();
+
+            audiosource.clip = sfx.Clip[Random.Range(0, sfx.Clip.Length)];
+            audiosource.loop = sfx.isloop;
+            audiosource.volume = sfx.volume;
+
         }
 
         IEnumerator StopAfterTime()
