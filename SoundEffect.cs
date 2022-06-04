@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Holylib.SoundEffects
 {
-    public class SoundEffect : MonoBehaviour
+    public class SoundEffect
     {
         public AudioClip[] Clip;
         public bool isloop = false;
