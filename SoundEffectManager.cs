@@ -152,6 +152,16 @@ namespace Holylib.SoundEffects
             ModifySound(SoundEffectManager.Instance.PlayinMusic, SoundType.Music, null, true, finalvolume);
         }
 
+        public static void ChangePitch(GameObject sound,float range)
+        {
+            sound.GetComponent<AudioSource>().pitch = Random.Range(1-range,1+range);
+        }
+
+        public static void ChangePitchExact(GameObject sound, float value)
+        {
+            sound.GetComponent<AudioSource>().pitch = value;
+        }
+
         static void CreateSound(GameObject sound, SoundType type, SoundClip clip, bool isloop = false, float volumePercentage = 1, float playduration = -1, float startduration = -1, Vector3 pos = new Vector3())
         {
             SoundEffect sfx = new SoundEffect();

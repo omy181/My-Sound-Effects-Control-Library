@@ -11,6 +11,8 @@ namespace Holylib.SoundEffects
         {
             audiosource = GetComponent<AudioSource>();
 
+            if (GameManager.instance.StartCoolDown) return;
+
             Modify();
 
             if(sfx.startduration > 0)
